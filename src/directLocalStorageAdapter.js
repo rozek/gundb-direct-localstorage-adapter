@@ -13,23 +13,26 @@
     Context.on('get', function (WireMessage) {           // no "fat arrow" here!
       this.to.next(WireMessage)
 
-      let LEX  = WireMessage.get
-      let Soul = (LEX == null ? undefined : LEX['#'])
+      let DedupId = WireMessage['#']
+      let LEX     = WireMessage.get
+      let Soul    = (LEX == null ? undefined : LEX['#'])
       if (Soul == null) { return }
 
       const StorageKey = StorageKeyPrefix + Soul
 
       let Data = Storage.getItem(StorageKey)        // fetches data from storage
-      if (Data != null) {
+      if (Data == null) {                        // acknowledge a missing node
+        Context.on('in', { '@':DedupId, err:null, put:null })
+      } else {
         let Key = LEX['.']
         if ((Key != null) && ! Object.plain(Key)) {
           Data = GUN.state.ify(
             {}, Key, GUN.state.is(Data,Key), Data[Key], Soul
           )
         }
-      }
 
-      GUN.on.get.ack(WireMessage,Data)
+        Context.on('in', { '@':DedupId, ok:1, err:null, put:Data })
+      }
     })
 
   /**** put - patches the contents of a given node ****/
@@ -52,15 +55,14 @@
             JSON.parse(currentContents), Key, LEX['>'], LEX[':'], Soul
           )
         ))
+
+        Context.on('in', { '@':DedupId, ok:true, err:null })
       } catch (Signal) {
         Error = 'localStorage failure: ' + Signal + (
           Signal.stack == null ? '' : '' + Signal.stack
         )
+        Context.on('in', { '@':DedupId, ok:false, err:Error })
       }
-
-      Context.on('in', {                           // acknowledge put completion
-        '@':DedupId, err:Error, ok:(Error == null ? 1 : 0)
-      })
     })
   })
 
