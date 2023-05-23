@@ -53,7 +53,7 @@
           )
         ))
       } catch (Signal) {
-        Error = 'sessionStorage failure: ' + Signal + (
+        Error = 'localStorage failure: ' + Signal + (
           Signal.stack == null ? '' : '' + Signal.stack
         )
       }
