@@ -8,7 +8,7 @@ In contrast to the author's [in-memory storage adapter](https://github.com/rozek
 
 "direct" means that a nodes complete id (its "soul") is used as a key for localStorage to store that node's contents. While this may work well for short souls, it will consume a lot of memory as soon as the node ids get longer...
 
-Please be aware that, in most browsers, "localStorage" has an overall size limit of 10MB (or 5*1024*1024 UTF-16 characters, counting keys and values) - for that reason, it should only be used for testing purposes!
+Please be aware that, in most browsers, "localStorage" has an overall size limit of 10MB (or 5*1024*1024 UTF-16 characters, counting keys and values) - for that reason, it should only be used for testing purposes! If you want to persist more than just these few megabytes of data, you may consider the author's [direct locaForage adapter](https://github.com/rozek/gundb-direct-localforage-adapter) instead.
 
 > **Important**: this adapter is not yet finished and its documentation still has to be written. The plan is to finish everything by end of June, 2023
 
