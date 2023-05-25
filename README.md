@@ -10,7 +10,7 @@ In contrast to the author's [in-memory storage adapter](https://github.com/rozek
 
 Please be aware that, in most browsers, "localStorage" has an overall size limit of 10MB (or 5*1024*1024 UTF-16 characters, counting keys and values) - for that reason, it should only be used for testing purposes! If you want to persist more than just these few megabytes of data, you may consider the author's [direct locaForage adapter](https://github.com/rozek/gundb-direct-localforage-adapter) instead.
 
-> **Important: after two weeks of intensive work and no substantial outcome, I have decided to give up on GunDB - it is full of bugs and - even worse - race conditions and the implementation looks like being hacked in a style used 40 years ago (when source code had to be compact and variable names short in order to fit into the memory) **
+> **Important: after two weeks of intensive work and no substantial outcome, I have decided to give up on GunDB - it is full of bugs and - even worse - race conditions and the implementation looks like being hacked in a style used 40 years ago (when source code had to be compact and variable names short in order to fit into the memory)**
 
 ## Usage ##
 
